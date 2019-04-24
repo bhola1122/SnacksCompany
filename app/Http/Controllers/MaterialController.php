@@ -4,17 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Material;
 use Illuminate\Http\Request;
+use App\Http\Resources\MaterialResource;
+use App\Customer;
 
 class MaterialController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Customer $customer)
     {
-        //
+        // return $customer->materials;
+        return MaterialResource::collection($customer->materials);
     }
 
     /**
@@ -46,7 +54,7 @@ class MaterialController extends Controller
      */
     public function show(Material $material)
     {
-        //
+        return $material;
     }
 
     /**
